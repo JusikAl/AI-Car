@@ -77,7 +77,7 @@ class Car:
         self.y -= vertical
         
         distance = abs(self.velocity)
-        self.distance_traveled += distance
+        self.distance_traveled += abs(self.velocity)
         self.fitness = self.distance_traveled
 
     def collide(self, mask, x=0, y=0):
