@@ -32,7 +32,7 @@ class Car:
         self.acceleration = 0.1
         self.alive = True
 
-        self.sensors_angle = [-60, -30, 0, 30, 60]
+        self.sensors_angle = [-90, -60, -30, 0, 30, 60, 90]
 
         self.track_border_mask = track_border_mask
         self.width = width

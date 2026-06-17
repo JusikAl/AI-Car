@@ -1,7 +1,8 @@
 import pygame
 from neural_network import NeuralNetwork
 from car import PlayerCar
-    
+import random
+import numpy as np
 
 def scale_image(img, factor):
     size = (
@@ -82,7 +83,7 @@ images = [
 
 cars = []
 
-for i in range(100):
+for i in range(50):
     car = PlayerCar(
         max_velocity=4,
         rotation_velocity=4,
@@ -121,7 +122,31 @@ while run:
         )
 
         print("Best fitness:", best_cars[0].fitness)
-
-        run = False
-
+        
+        parents = best_cars[:10]
+        cars = []
+        
+        for i in range(50):
+            parent = random.choice(parents)
+            
+            car = PlayerCar(
+                max_velocity=4,
+                rotation_velocity=4,
+                img=RED_CAR,
+                start_pos=(180, 200),
+                track_border_mask=TRACK_BORDER_MASK,
+                width=WIDTH,
+                height=HEIGHT,
+            )
+            
+            car.brain = NeuralNetwork()
+            
+            car.brain.weights = parent.brain.weights.copy()
+            
+            car.brain.weights += np.random.randn(
+                *car.brain.weights.shape
+            ) * 0.1
+            cars.append(car)
+            
+            
 pygame.quit()
